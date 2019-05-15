@@ -22,7 +22,7 @@ import guru.gss.mytestapplication.utils.dagger.utils.Injectors;
 public class NavigationMenuFragment extends Fragment {
 
     @Inject
-    Interactor.Сharacter model;
+    Interactor.CharacterInteractor model;
 
     String[] data = {"Dead", "Alive", "All"};
 

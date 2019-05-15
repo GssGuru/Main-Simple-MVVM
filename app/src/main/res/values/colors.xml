@@ -8,5 +8,6 @@
     <color name="colorTextLight">#a6a6a6</color>
     <color name="colorIcons">#181818</color>
     <color name="colorTrasnFull">#00ffffff</color>
+    <color name="colorTextNormal">#181818</color>
 
 </resources>

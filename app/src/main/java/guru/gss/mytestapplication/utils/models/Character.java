@@ -1,50 +1,45 @@
 package guru.gss.mytestapplication.utils.models;
 
-import com.google.gson.annotations.Expose;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+@Entity
 public class Character {
 
     @SerializedName("id")
-    private int id;
+    @PrimaryKey
+    public Long id;
 
     @SerializedName("name")
-    private String name;
+    public String name;
 
     @SerializedName("status")
-    private String status;
+    public String status;
 
     @SerializedName("species")
-    private String species;
+    public String species;
 
     @SerializedName("gender")
-    private String gender;
-
-    @SerializedName("origin")
-    private Origin origin;
-
-    @SerializedName("location")
-    private CharacterLocation location;
+    public String gender;
 
     @SerializedName("image")
-    private String image;
-
-    @SerializedName("episode")
-    private List<String> episode = null;
+    public String image;
 
     @SerializedName("url")
-    private String url;
+    public String url;
 
     @SerializedName("created")
-    private String created;
+    public String created;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -80,36 +75,12 @@ public class Character {
         this.gender = gender;
     }
 
-    public Origin getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(Origin origin) {
-        this.origin = origin;
-    }
-
-    public CharacterLocation getLocation() {
-        return location;
-    }
-
-    public void setLocation(CharacterLocation location) {
-        this.location = location;
-    }
-
-    public String getImage() {
-        return image;
+    public URL getImage() throws MalformedURLException {
+        return new URL(url);
     }
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public List<String> getEpisode() {
-        return episode;
-    }
-
-    public void setEpisode(List<String> episode) {
-        this.episode = episode;
     }
 
     public String getUrl() {

@@ -4,6 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import guru.gss.mytestapplication.MyApp;
+import guru.gss.mytestapplication.model.repository.database.AppDatabase;
 import guru.gss.mytestapplication.model.repository.network.client.RetrofitClient;
 import guru.gss.mytestapplication.model.repository.network.impl.NetworkRepository;
 import guru.gss.mytestapplication.model.repository.network.impl.NetworkRepositoryImpl;
@@ -36,6 +38,12 @@ public class AppModule {
     @Singleton
     public RxSchedulersImpl provideRxSchedlers() {
         return new RxSchedulers();
+    }
+
+    @Provides
+    @Singleton
+    public AppDatabase provideAppDatabase() {
+        return MyApp.getInstance().getDatabase();
     }
 
 }
