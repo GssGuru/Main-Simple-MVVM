@@ -8,9 +8,14 @@ import guru.gss.mytestapplication.model.repository.database.dao.CharacterDao;
 import guru.gss.mytestapplication.model.repository.network.impl.NetworkRepository;
 import guru.gss.mytestapplication.model.repository.preference.PreferenceRepository;
 import guru.gss.mytestapplication.model.repository.preference.PreferenceRepositoryImpl;
+import guru.gss.mytestapplication.utils.LoggerUtils;
 import guru.gss.mytestapplication.utils.rx.RxSchedulersImpl;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
+import guru.gss.mytestapplication.utils.models.Character;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class CharacterInteractorImpl implements Interactor.CharacterInteractor {
 
@@ -18,8 +23,7 @@ public class CharacterInteractorImpl implements Interactor.CharacterInteractor {
     private NetworkRepository networkRepository;
     private PreferenceRepository pref;
     private CharacterDao characterDao;
-    public List<guru.gss.mytestapplication.utils.models.Character> list;
-    public String myString = "ghbdtn";
+    public List<Character> list;
 
     public CharacterInteractorImpl(PreferenceRepositoryImpl pref, RxSchedulersImpl rxSchedulers, NetworkRepository networkRepository, AppDatabase db) {
         this.pref = pref;
@@ -29,8 +33,9 @@ public class CharacterInteractorImpl implements Interactor.CharacterInteractor {
         list = new ArrayList<>();
     }
 
+
     @Override
-    public Single<List<guru.gss.mytestapplication.utils.models.Character>> getList(int page) {
+    public Single<List<Character>> getList(int page) {
         return networkRepository.getListCharacters();
     }
 
@@ -41,7 +46,8 @@ public class CharacterInteractorImpl implements Interactor.CharacterInteractor {
 
     @Override
     public String getMyString() {
-        return myString;
+
+        return "";
     }
 
 }

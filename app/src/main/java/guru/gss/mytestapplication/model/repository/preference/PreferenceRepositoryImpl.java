@@ -6,7 +6,9 @@ import android.preference.PreferenceManager;
 import javax.inject.Inject;
 
 import guru.gss.mytestapplication.MyApp;
+import guru.gss.mytestapplication.utils.LoggerUtils;
 import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Single;
 
 
@@ -23,66 +25,59 @@ public class PreferenceRepositoryImpl implements PreferenceRepository {
 
     @Override
     public Completable setValue(String key, Object value) {
-        return null;
-    }
-
-    @Override
-    public Single<SharedPreferences> getValue() {
-        return null;
+        return new Completable() {
+            @Override
+            protected void subscribeActual(CompletableObserver s) {
+                try {
+                    SharedPreferences.Editor editor = mPref.edit();
+                    if (value instanceof String) {
+                        String val = (String) value;
+                        editor.putString(key, val);
+                    }
+                    if (value instanceof Integer) {
+                        Integer val = (Integer) value;
+                        editor.putInt(key, val);
+                    }
+                    if (value instanceof Boolean) {
+                        Boolean val = (Boolean) value;
+                        editor.putBoolean(key, val);
+                    }
+                    editor.apply();
+                } catch (Exception e) {
+                    LoggerUtils.errorLog(getClass().getName(), e);
+                }
+            }
+        };
     }
 
     @Override
     public Completable remove(String key) {
-        return null;
+        return new Completable() {
+            @Override
+            protected void subscribeActual(CompletableObserver s) {
+                try {
+                    mPref.edit().remove(key).apply();
+                } catch (Exception e) {
+                    LoggerUtils.errorLog(getClass().getName(), e);
+                }
+            }
+        };
     }
 
     @Override
     public Single<Boolean> isValueExist(String key) {
-        return null;
+        return Single.fromCallable(() -> {
+            try {
+                return mPref.contains(key);
+            } catch (Exception e) {
+                LoggerUtils.errorLog(getClass().getName(), e);
+                return false;
+            }
+        });
     }
 
-//    /**
-//     * Установить значение в SharedPreferences
-//     */
-//    @Override
-//    public void setValue(String key, Object value) {
-//        SharedPreferences.Editor editor = mPref.edit();
-//        if (value instanceof String) {
-//            String val = (String) value;
-//            editor.putString(key, val);
-//        }
-//        if (value instanceof Integer) {
-//            Integer val = (Integer) value;
-//            editor.putInt(key, val);
-//        }
-//        if (value instanceof Boolean) {
-//            Boolean val = (Boolean) value;
-//            editor.putBoolean(key, val);
-//        }
-//        editor.apply();
-//    }
-//
-//    /**
-//     * Взять значение с SharedPreferences
-//     */
-//    @Override
-//    public SharedPreferences getValue() {
-//        return mPref;
-//    }
-//
-//    /**
-//     * Удалить значение в SharedPreferences
-//     */
-//    @Override
-//    public void remove(String key){
-//        mPref.edit().remove(key).apply();
-//    }
-//
-//    /**
-//     * Проверить сужествует ли значение в SharedPreferences
-//     */
-//    @Override
-//    public boolean isValueExist(String key){
-//        return mPref.contains(key);
-//    }
+    @Override
+    public Single<SharedPreferences> getValue() {
+        return Single.fromCallable(() -> mPref);
+    }
 }

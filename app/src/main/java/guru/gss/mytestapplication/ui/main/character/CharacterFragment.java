@@ -2,11 +2,17 @@ package guru.gss.mytestapplication.ui.main.character;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import javax.inject.Inject;
 
@@ -40,34 +46,35 @@ public class CharacterFragment extends Fragment {
 
         FragmentCharacterBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_character, container, false);
         View view = binding.getRoot();
-//        binding.setCharacters(model);
 
 
-//        RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
-//        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_character_animation);
-//        recyclerView.setLayoutAnimation(animation);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        CharacterAdapter adapter = new CharacterAdapter();
-//        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_character_animation);
+        recyclerView.setLayoutAnimation(animation);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        CharacterAdapter adapter = new CharacterAdapter();
+        recyclerView.setAdapter(adapter);
 //
-//        Toolbar mToolbar = v.findViewById(R.id.toolbar);
-//        mToolbar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-//        mToolbar.setNavigationIcon(R.drawable.ic_menu);
-//        mToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorIcons), PorterDuff.Mode.SRC_ATOP);
-//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mListener != null) {
-//                    mListener.openDrover();
-//                }
-//            }
-//        });
+        Toolbar mToolbar = view.findViewById(R.id.toolbar);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        mToolbar.setNavigationIcon(R.drawable.ic_menu);
+        mToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorIcons), PorterDuff.Mode.SRC_ATOP);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.openDrover();
+                }
+            }
+        });
 //
 //        mToolbar.setTitle("CharacterInteractor");
 //        mToolbar.setTitleTextColor(getResources().getColor(R.color.colorIcons));
 //
 //        model.getList(0).;
 
+
+//        binding.setCharacters(model);
         return view;
     }
 

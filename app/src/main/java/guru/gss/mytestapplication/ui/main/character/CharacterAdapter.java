@@ -17,12 +17,16 @@ import guru.gss.mytestapplication.utils.models.Character;
 /*Simple adapter for News*/
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterHolder> {
 
-    private Context context;
-    private ArrayList<Character> list;
+    private ArrayList<Character> list = new ArrayList<>();
 
-    public void setData(Context context) {
-        this.context = context;
-        list = new ArrayList<>();
+    public void setData(ArrayList<Character> list) {
+        this.list.clear();
+        this.list.addAll(list);
+    }
+
+    void addData(ArrayList<Character> list) {
+        this.list.addAll(list);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -41,17 +45,5 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterHolder> {
     @Override
     public int getItemCount() {
         return list.size();
-    }
-
-
-    void addAll(ArrayList<Character> list) {
-        this.list.addAll(list);
-        notifyDataSetChanged();
-    }
-
-    void setList(ArrayList<Character> list) {
-        this.list.clear();
-        this.list.addAll(list);
-        notifyDataSetChanged();
     }
 }
